@@ -17,17 +17,17 @@ export function FortuneCard({ fortune, cardRef }: FortuneCardProps) {
         <CardContent className="p-8 relative z-10 h-[560px]">
           <div className="writing-mode-vertical-rl text-start space-y-6 h-full flex justify-center items-center">
             {/* 签号 */}
-            <div className="text-lg font-bold text-primary font-serif">
+            <div className="text-lg font-bold text-primary font-serif tracking-wider">
               【{fortune.number}】
             </div>
             
             {/* 主签文 */}
-            <div className="text-xl text-foreground font-serif leading-loose tracking-wider">
+            <div className="text-xl text-foreground font-serif leading-loose tracking-[0.3em]">
               {fortune.mainText}
             </div>
             
             {/* 文化引用 */}
-            <div className="text-sm text-muted-foreground italic leading-relaxed">
+            <div className="text-sm text-muted-foreground italic leading-relaxed tracking-wide">
               {fortune.culturalReference}
             </div>
             

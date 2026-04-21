@@ -21,8 +21,11 @@ export const InterpretModule: React.FC<InterpretModuleProps> = ({
   // 处理文案换行显示 - 添加安全检查
   const safeContent = content || '';
   
+  // 移除内容开头的标题（如"时节呼应："）
+  const cleanContent = safeContent.replace(new RegExp(`^${title}[:：]\\s*`), '');
+  
   // 处理换行符：将 \n 转换为 <br/> 标签用于显示
-  const formattedContent = safeContent.replace(/\n/g, '<br/>');
+  const formattedContent = cleanContent.replace(/\n/g, '<br/>');
 
   return (
     <div className="bg-card/50 rounded-lg border border-border/30 overflow-hidden">
