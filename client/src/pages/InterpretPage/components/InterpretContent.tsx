@@ -51,7 +51,7 @@ export function InterpretContent({ interpretation }: InterpretContentProps) {
               白话解读
             </div>
             <div className="text-sm text-muted-foreground font-serif">
-              AI深度解析签文含义
+              深度解析签文含义
             </div>
           </div>
         </div>

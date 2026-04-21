@@ -28,7 +28,7 @@ export const callCapabilities = async (input: InputParams): Promise<Response> =>
   try {
     const apiKey = 'sk-368063b63be646edac7d2fa4bceb069a';
     
-    const prompt = `${input.fortune_text}, 神秘东方风格，古风，唯美，意境深远，水墨画风格，柔和色调，高清，禁止在图片里增加文字`;
+    const prompt = `中国水墨画风格，根据以下签文意境生成画面：${input.fortune_text}。画面要求：传统中国水墨画技法，淡雅色调，留白意境，山水花鸟元素，文人画风格，宣纸质感，墨色晕染效果，古朴典雅，富有文化底蕴。不要任何文字出现在画面中。`;
     
     const sizeMap: Record<string, string> = {
       '16:9': '1280*720',
