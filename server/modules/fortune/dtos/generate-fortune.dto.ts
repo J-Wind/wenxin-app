@@ -16,6 +16,9 @@ export class GenerateFortuneResponseDto {
   @ApiProperty({ description: '签号', required: false })
   number?: string;
 
+  @ApiProperty({ description: '签文类型（上上签/上签/中签/下签/下下签）', required: false })
+  fortuneType?: string;
+
   @ApiProperty({ description: '主签文', required: false })
   mainText?: string;
 
@@ -24,6 +27,9 @@ export class GenerateFortuneResponseDto {
 
   @ApiProperty({ description: '卦象', required: false })
   hexagram?: string;
+
+  @ApiProperty({ description: '卦象符号', required: false })
+  hexagramSymbol?: string;
 
   @ApiProperty({ description: '原始AI响应', required: false })
   rawResponse?: string;

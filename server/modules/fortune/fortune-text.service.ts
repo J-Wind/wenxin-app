@@ -38,6 +38,12 @@ export class FortuneTextService {
       number = numberMatch[1].trim();
     }
 
+    let fortuneType = '上上签';
+    const fortuneTypeMatch = response.match(/【签文类型】\s*([^\n【]+)/);
+    if (fortuneTypeMatch && fortuneTypeMatch[1]) {
+      fortuneType = fortuneTypeMatch[1].trim();
+    }
+
     let mainText = '花开富贵，心想事成。贵人相助，事业通达。';
     const mainTextMatch = response.match(/【主签文】\s*([^【]+)/);
     if (mainTextMatch && mainTextMatch[1]) {
@@ -50,49 +56,63 @@ export class FortuneTextService {
       culturalReference = referenceMatch[1].trim();
     }
 
-    let hexagram = '乾卦 - 天行健，君子以自强不息';
+    let hexagram = '乾卦';
+    let hexagramSymbol = '☰☰';
     const hexagramMatch = response.match(/【卦象】\s*([^\n【]+)/);
     if (hexagramMatch && hexagramMatch[1]) {
-      hexagram = hexagramMatch[1].trim();
+      const hexagramFull = hexagramMatch[1].trim();
+      const symbolMatch = hexagramFull.match(/([☰☷☳☴☵☲☶☱]+)/);
+      if (symbolMatch) {
+        hexagramSymbol = symbolMatch[1];
+        hexagram = hexagramFull.replace(symbolMatch[1], '').trim();
+      } else {
+        hexagram = hexagramFull;
+      }
     }
 
     return {
       number,
+      fortuneType,
       mainText,
       culturalReference,
-      hexagram
+      hexagram,
+      hexagramSymbol
     };
   }
 
   private getDefaultFortune(mood: string): any {
-    // 基于用户心境返回不同的默认签文
     const defaultFortunes = [
       {
         number: '上上签',
+        fortuneType: '上上签',
         mainText: '花开富贵，心想事成。贵人相助，事业通达。',
         culturalReference: '《诗经》有云："桃之夭夭，灼灼其华。之子于归，宜其室家。"',
-        hexagram: '乾卦 - 天行健，君子以自强不息'
+        hexagram: '乾卦',
+        hexagramSymbol: '☰☰'
       },
       {
         number: '中吉签',
+        fortuneType: '上签',
         mainText: '静待时机，厚积薄发。守得云开见月明。',
         culturalReference: '《道德经》曰："上善若水，水善利万物而不争。"',
-        hexagram: '坤卦 - 地势坤，君子以厚德载物'
+        hexagram: '坤卦',
+        hexagramSymbol: '☷☷'
       },
       {
         number: '上吉签',
+        fortuneType: '上签',
         mainText: '福星高照，喜气盈门。机缘巧合，收获满满。',
         culturalReference: '《论语》云："有朋自远方来，不亦乐乎？"',
-        hexagram: '泰卦 - 天地交泰，万物亨通'
+        hexagram: '泰卦',
+        hexagramSymbol: '☷☰'
       }
     ];
 
-    // 基于用户心境选择签文
     const hash = this.hashString(mood);
     const index = hash % defaultFortunes.length;
     
     return {
-      success: false, // 标记为默认签文
+      success: false,
       ...defaultFortunes[index],
       message: 'AI签文生成服务暂时不可用，使用默认签文'
     };

@@ -10,12 +10,11 @@ interface FortuneCardProps {
 export function FortuneCard({ fortune, cardRef }: FortuneCardProps) {
   return (
     <div className="relative max-w-md mx-auto" ref={cardRef}>
-
       <Card className="relative bg-paper border-2 border-primary/30 shadow-2xl overflow-hidden">
         <div className="absolute inset-0 bg-paper-texture opacity-20 pointer-events-none"></div>
         <div className="absolute inset-0 border-2 border-primary/20 pointer-events-none"></div>
         
-        <CardContent className="p-8 relative z-10 flex justify-center items-center h-[560px]">
+        <CardContent className="p-8 relative z-10 flex flex-col items-center h-[560px]">
           <div className="writing-mode-vertical-rl text-start space-y-8">
             <div className="text-xl text-foreground font-serif leading-loose">
               {fortune.mainText}
@@ -26,7 +25,7 @@ export function FortuneCard({ fortune, cardRef }: FortuneCardProps) {
             </div>
             
             <div className="text-sm text-muted-foreground font-medium">
-              {fortune.hexagram}
+              {fortune.hexagram} {fortune.hexagramSymbol}
             </div>
           </div>
           
@@ -37,7 +36,6 @@ export function FortuneCard({ fortune, cardRef }: FortuneCardProps) {
           </div>
         </CardContent>
       </Card>
-
     </div>
   );
 }

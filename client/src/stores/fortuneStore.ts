@@ -10,9 +10,11 @@ export interface FortuneData {
 
 export interface FortuneResult {
   number: string; // 签号
+  fortuneType: string; // 签文类型（上上签/上签/中签/下签/下下签）
   mainText: string; // 主签文
   culturalReference: string; // 文化意象引用
   hexagram: string; // 易经卦象
+  hexagramSymbol: string; // 卦象符号（如 ☰☰）
   userInput: FortuneData; // 用户输入信息
   imageUrl?: string; // 生成的配套图片URL
 }

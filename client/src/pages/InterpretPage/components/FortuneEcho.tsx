@@ -35,7 +35,7 @@ export function FortuneEcho({ fortune }: FortuneEchoProps) {
               </div>
               
               <div className="text-sm text-muted-foreground font-medium">
-                {fortune.hexagram}
+                {fortune.hexagram} {fortune.hexagramSymbol}
               </div>
             </div>
           </div>
