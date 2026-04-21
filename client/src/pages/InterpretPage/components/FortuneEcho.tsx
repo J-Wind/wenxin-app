@@ -8,43 +8,29 @@ interface FortuneEchoProps {
 
 export function FortuneEcho({ fortune }: FortuneEchoProps) {
   return (
-    <div className="relative">
-      <Card className="bg-card/50 backdrop-blur-md border border-primary/20 rounded-xl hover:bg-card/70 transition-all duration-300">
-        <CardContent className="p-6">
-          <div className="flex items-center justify-center mb-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-                <div className="text-primary font-serif">📜</div>
-              </div>
-               <div>
-                 <div className="text-lg font-bold text-primary font-serif">
-                   原签文回顾
-                 </div>
-               </div>
-            </div>
-          </div>
-          
-          <div className="text-center space-y-4">
-            {/* 签文类型 */}
-            <div className="text-2xl font-bold text-primary font-serif mb-6">
-              {fortune.fortuneType}
+    <div className="relative max-w-md mx-auto">
+      <Card className="relative bg-paper border-2 border-primary/30 shadow-xl overflow-hidden">
+        <div className="absolute inset-0 bg-paper-texture opacity-20 pointer-events-none"></div>
+        <div className="absolute inset-0 border-2 border-primary/20 pointer-events-none"></div>
+        
+        <CardContent className="p-6 relative z-10 flex justify-center items-center min-h-[400px]">
+          <div className="writing-mode-vertical-rl text-start space-y-6">
+            <div className="text-lg text-foreground font-serif leading-loose">
+              {fortune.mainText}
             </div>
             
-            {/* 签号 + 签文 */}
-            <div className="text-base text-foreground font-serif leading-loose whitespace-pre-wrap">
-              【{fortune.number}】{fortune.mainText}
-            </div>
-            
-            {/* 文化引用 */}
-            <div className="text-base text-foreground font-serif leading-loose whitespace-pre-wrap">
+            <div className="text-sm text-muted-foreground italic leading-relaxed">
               {fortune.culturalReference}
             </div>
             
-            {/* 白话解释 - 如果文化引用中已包含则不显示 */}
-            
-            {/* 卦象 */}
-            <div className="text-sm text-muted-foreground font-medium mt-6">
+            <div className="text-sm text-muted-foreground font-medium">
               {fortune.hexagram} {fortune.hexagramSymbol}
+            </div>
+          </div>
+          
+          <div className="absolute bottom-4 left-4">
+            <div className="w-12 h-12 border-2 border-primary/50 rounded-full flex items-center justify-center">
+              <div className="text-xs text-primary font-serif">天机</div>
             </div>
           </div>
         </CardContent>
