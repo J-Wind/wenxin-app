@@ -32,8 +32,8 @@ export const callCapabilities = async (input: InputParams): Promise<Response> =>
     
     const sizeMap: Record<string, string> = {
       '16:9': '1280*720',
-      '3:2': '1200*800',
-      '4:3': '1024*768',
+      '3:2': '1280*720',
+      '4:3': '1024*1024',
       '1:1': '1024*1024',
       '2:3': '768*1152',
       '9:16': '720*1280'
