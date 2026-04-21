@@ -1,1 +1,15 @@
-{"$schema": "https://railway.app/railpack.schema.json", "packageManager": "npm", "build": {"commands": {"install": "npm install --omit=dev", "build": "npm run build:server && npm run build:client"}}, "start": "cd dist && NODE_ENV=production node server/main.js"}
+{
+  "$schema": "https://railway.app/railpack.schema.json",
+  "packageManager": "npm",
+  "build": {
+    "commands": {
+      "install": "npm install --omit=dev",
+      "build": "npm run build:server && npm run build:client"
+    }
+  },
+  "start": "cd dist && NODE_ENV=production node server/main.js",
+  "env": {
+    "FORCE_AUTHN_INNERAPI_DOMAIN": "localhost",
+    "NODE_ENV": "production"
+  }
+}
