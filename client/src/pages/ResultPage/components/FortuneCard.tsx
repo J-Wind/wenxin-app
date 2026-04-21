@@ -10,17 +10,6 @@ interface FortuneCardProps {
 export function FortuneCard({ fortune, cardRef }: FortuneCardProps) {
   return (
     <div className="relative max-w-md mx-auto" ref={cardRef}>
-
-      {/* 签号标识 */}
-      <div className="text-center mb-8">
-        <div className="text-2xl font-bold text-primary font-serif relative inline-block">
-          {fortune.number}
-          {/* 装饰性横线 */}
-          <div className="absolute -left-12 top-1/2 w-10 h-px bg-primary/40"></div>
-          <div className="absolute -right-12 top-1/2 w-10 h-px bg-primary/40"></div>
-        </div>
-      </div>
-
       {/* 主签文卡片 */}
       <Card className="relative bg-paper border-2 border-primary/30 shadow-2xl overflow-hidden">
         {/* 纸质纹理 */}
@@ -44,7 +33,7 @@ export function FortuneCard({ fortune, cardRef }: FortuneCardProps) {
             
             {/* 卦象 */}
             <div className="text-sm text-muted-foreground font-medium">
-              {fortune.hexagram}
+              {fortune.hexagram} {fortune.hexagramSymbol}
             </div>
           </div>
           
@@ -56,8 +45,6 @@ export function FortuneCard({ fortune, cardRef }: FortuneCardProps) {
           </div>
         </CardContent>
       </Card>
-
-
     </div>
   );
 }
