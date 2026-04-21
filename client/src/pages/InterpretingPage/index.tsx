@@ -147,23 +147,13 @@ export default function InterpretingPage() {
       fortuneNumber: fortuneResult.number
     });
 
-    // 构建完整的签文内容用于生成图片
-    const fullFortuneText = `
-签号：${fortuneResult.number}
-主签文：${fortuneResult.mainText}
-文化引用：${fortuneResult.culturalReference}
-卦象：${fortuneResult.hexagram}
-
-用户心境：${fortuneResult.userInput.mood}
-用户所念：${fortuneResult.userInput.thought}
-时节感受：${fortuneResult.userInput.seasonFeel}
-触发词：${fortuneResult.userInput.triggerWord}
-    `.trim();
+    // 只使用主签文生成图片，避免文本过长导致生成失败
+    const imagePrompt = `${fortuneResult.mainText} ${fortuneResult.culturalReference}`;
 
     // 调用真实的AI生图接口
     const response = await fortuneControllerGenerateImage({
       body: {
-        fortuneText: fullFortuneText,
+        fortuneText: imagePrompt,
         imageRatio: '4:3'
       }
     });

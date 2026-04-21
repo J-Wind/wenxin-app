@@ -9,7 +9,6 @@ interface FortuneEchoProps {
 export function FortuneEcho({ fortune }: FortuneEchoProps) {
   return (
     <div className="relative">
-      {/* 完整签文内容 */}
       <Card className="bg-card/50 backdrop-blur-md border border-primary/20 rounded-xl hover:bg-card/70 transition-all duration-300">
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
@@ -25,25 +24,19 @@ export function FortuneEcho({ fortune }: FortuneEchoProps) {
             </div>
           </div>
           
-          {/* 完整签文展示 */}
-          <div className="mt-4 text-center">
-            <div className="text-2xl font-bold text-primary font-serif mb-4">
-              {fortune.number}
-            </div>
-            
-            {/* 主签文 */}
-            <div className="text-xl text-foreground font-serif leading-loose mb-4">
-              {fortune.mainText}
-            </div>
-            
-            {/* 文化引用 */}
-            <div className="text-sm text-muted-foreground italic leading-relaxed mb-3">
-              {fortune.culturalReference}
-            </div>
-            
-            {/* 卦象 */}
-            <div className="text-sm text-muted-foreground font-medium">
-              {fortune.hexagram}
+          <div className="mt-4 flex justify-center">
+            <div className="writing-mode-vertical-rl text-start space-y-6">
+              <div className="text-xl text-foreground font-serif leading-loose">
+                {fortune.mainText}
+              </div>
+              
+              <div className="text-sm text-muted-foreground italic leading-relaxed">
+                {fortune.culturalReference}
+              </div>
+              
+              <div className="text-sm text-muted-foreground font-medium">
+                {fortune.hexagram}
+              </div>
             </div>
           </div>
         </CardContent>

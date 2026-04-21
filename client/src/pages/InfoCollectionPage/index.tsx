@@ -86,7 +86,7 @@ export default function InfoCollectionPage() {
               className="h-16 px-12 bg-gradient-to-r from-primary to-secondary text-primary-foreground font-semibold text-xl rounded-full shadow-2xl shadow-gold hover:shadow-gold-glow hover:scale-110 transition-all duration-300"
               size="lg"
             >
-              进入占卜
+              进入占问
             </Button>
           </div>
         ) : (
@@ -119,7 +119,7 @@ export default function InfoCollectionPage() {
                   className="w-full h-14 bg-gradient-to-r from-primary to-secondary text-primary-foreground font-semibold text-lg rounded-full shadow-lg shadow-gold hover:shadow-gold-glow hover:scale-105 transition-all duration-300"
                   size="lg"
                 >
-                  开始占卜
+                  算一卦
                 </Button>
               </CardContent>
             </Card>

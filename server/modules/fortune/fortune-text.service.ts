@@ -30,45 +30,28 @@ export class FortuneTextService {
   }
 
   private parseFortuneResponse(response: string): any {
-    // 简单的解析逻辑，实际应用中需要更复杂的解析
     const lines = response.split('\n').filter(line => line.trim());
     
-    // 尝试提取签号 - 改进匹配逻辑
-    let number = '上上签'; // 默认改为上上签，避免固定显示甲子
-    
-    // 多种匹配模式
-    const numberMatch = response.match(/【签号】\s*([^\n【]+)/) || 
-                       response.match(/签号[:：]\s*([^\n【]+)/) ||
-                       response.match(/(第[^签]+签)/) ||
-                       response.match(/([上下中]+[上下吉凶平]+签)/);
-    
+    let number = '上上签';
+    const numberMatch = response.match(/【签号】\s*([^\n【]+)/);
     if (numberMatch && numberMatch[1]) {
       number = numberMatch[1].trim();
     }
 
-    // 尝试提取主签文
     let mainText = '花开富贵，心想事成。贵人相助，事业通达。';
-    const mainTextMatch = response.match(/【主签文】\s*([^【]+)/) || 
-                         response.match(/主签文[:：]\s*([^\n【]+)/) ||
-                         response.match(/([^。]+。[^。]+。[^。]+。[^。]+。)/);
+    const mainTextMatch = response.match(/【主签文】\s*([^【]+)/);
     if (mainTextMatch && mainTextMatch[1]) {
       mainText = mainTextMatch[1].trim();
     }
 
-    // 尝试提取文化引用
     let culturalReference = '《易经》有云："天行健，君子以自强不息。"';
-    const referenceMatch = response.match(/【文化引用】\s*([^【]+)/) || 
-                          response.match(/文化引用[:：]\s*([^\n【]+)/) ||
-                          response.match(/(《[^》]+》[^\n]+)/);
+    const referenceMatch = response.match(/【文化引用】\s*([^【]+)/);
     if (referenceMatch && referenceMatch[1]) {
       culturalReference = referenceMatch[1].trim();
     }
 
-    // 尝试提取卦象
     let hexagram = '乾卦 - 天行健，君子以自强不息';
-    const hexagramMatch = response.match(/【卦象】\s*([^\n【]+)/) || 
-                         response.match(/卦象[:：]\s*([^\n【]+)/) ||
-                         response.match(/([^卦]+卦[^\n]+)/);
+    const hexagramMatch = response.match(/【卦象】\s*([^\n【]+)/);
     if (hexagramMatch && hexagramMatch[1]) {
       hexagram = hexagramMatch[1].trim();
     }
