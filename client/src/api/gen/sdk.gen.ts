@@ -21,7 +21,7 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 
 export const platformPermissionControllerGetUserPoints = <ThrowOnError extends boolean = false>(options?: Options<PlatformPermissionControllerGetUserPointsData, ThrowOnError>) => {
     return (options?.client ?? client).get<PlatformPermissionControllerGetUserPointsResponses, unknown, ThrowOnError>({
-        url: '/app/app_4jza167e26cxk/api/sdk_innerapi/permission/user-points',
+        url: '/api/sdk_innerapi/permission/user-points',
         ...options
     });
 };
@@ -33,7 +33,7 @@ export const platformPermissionControllerGetUserPoints = <ThrowOnError extends b
  */
 export const fortuneControllerGenerateImage = <ThrowOnError extends boolean = false>(options: Options<FortuneControllerGenerateImageData, ThrowOnError>) => {
     return (options.client ?? client).post<FortuneControllerGenerateImageResponses, unknown, ThrowOnError>({
-        url: '/app/app_4jza167e26cxk/api/fortune/generate-image',
+        url: '/api/fortune/generate-image',
         ...options,
         headers: {
             'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export const fortuneControllerGenerateImage = <ThrowOnError extends boolean = fa
  */
 export const fortuneTextControllerGenerateFortuneText = <ThrowOnError extends boolean = false>(options: Options<FortuneTextControllerGenerateFortuneTextData, ThrowOnError>) => {
     return (options.client ?? client).post<FortuneTextControllerGenerateFortuneTextResponses, unknown, ThrowOnError>({
-        url: '/app/app_4jza167e26cxk/api/fortune/generate-text',
+        url: '/api/fortune/generate-text',
         ...options,
         headers: {
             'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export const fortuneTextControllerGenerateFortuneText = <ThrowOnError extends bo
  */
 export const fortuneInterpretationControllerGenerateInterpretation = <ThrowOnError extends boolean = false>(options: Options<FortuneInterpretationControllerGenerateInterpretationData, ThrowOnError>) => {
     return (options.client ?? client).post<FortuneInterpretationControllerGenerateInterpretationResponses, unknown, ThrowOnError>({
-        url: '/app/app_4jza167e26cxk/api/fortune/generate-interpretation',
+        url: '/api/fortune/generate-interpretation',
         ...options,
         headers: {
             'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export const fortuneInterpretationControllerGenerateInterpretation = <ThrowOnErr
  */
 export const fortuneShareControllerShareFortune = <ThrowOnError extends boolean = false>(options: Options<FortuneShareControllerShareFortuneData, ThrowOnError>) => {
     return (options.client ?? client).post<FortuneShareControllerShareFortuneResponses, FortuneShareControllerShareFortuneErrors, ThrowOnError>({
-        url: '/app/app_4jza167e26cxk/api/fortune/share',
+        url: '/api/fortune/share',
         ...options,
         headers: {
             'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export const fortuneShareControllerShareFortune = <ThrowOnError extends boolean 
 
 export const downloadControllerDownloadApp = <ThrowOnError extends boolean = false>(options?: Options<DownloadControllerDownloadAppData, ThrowOnError>) => {
     return (options?.client ?? client).get<DownloadControllerDownloadAppResponses, unknown, ThrowOnError>({
-        url: '/app/app_4jza167e26cxk/api/download/app',
+        url: '/api/download/app',
         ...options
     });
 };
