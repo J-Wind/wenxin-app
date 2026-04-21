@@ -10,7 +10,7 @@ import { AiImage } from './components/AiImage';
 import { Sparkles, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { logger } from '@lark-apaas/client-toolkit/logger';
-import { fortuneInterpretationControllerGenerateInterpretation } from '@/api/gen';
+import { fortuneInterpretationControllerGenerateInterpretation, fortuneControllerGenerateImage } from '@/api/gen';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function InterpretPage() {
@@ -18,7 +18,8 @@ export default function InterpretPage() {
   const { 
     fortuneResult, 
     interpretationResult,
-    setInterpretationResult
+    setInterpretationResult,
+    setFortuneImage
   } = useFortuneStore();
   
   const [isGenerating, setIsGenerating] = useState(false);
@@ -148,16 +149,48 @@ export default function InterpretPage() {
     }
   };
 
-  // 不再自动生成解读，只显示已生成的结果
-  
-  // 检查是否已有解读结果，如果没有则跳回签文页面
+  // 页面加载后在后台生成图片
   useEffect(() => {
     if (!interpretationResult) {
       logger.warn('用户未生成解读，跳转回签文页面');
       navigate('/fortune-result');
       return;
     }
-  }, [interpretationResult, navigate]);
+
+    // 在后台生成图片，不阻塞页面显示
+    const generateImageInBackground = async () => {
+      if (!fortuneResult) return;
+
+      try {
+        logger.info('开始在后台生成图片', {
+          fortuneNumber: fortuneResult.number
+        });
+
+        const imagePrompt = `${fortuneResult.mainText} ${fortuneResult.culturalReference}`;
+
+        const response = await fortuneControllerGenerateImage({
+          body: {
+            fortuneText: imagePrompt,
+            imageRatio: '4:3'
+          }
+        });
+
+        if (response.status === 200 || response.status === 201) {
+          const apiResponse = response.data;
+          if (apiResponse.success && apiResponse.imageUrl) {
+            setFortuneImage(apiResponse.imageUrl);
+            logger.info('后台图片生成成功', {
+              fortuneNumber: fortuneResult.number
+            });
+          }
+        }
+      } catch (error) {
+        logger.warn('后台图片生成失败，但不影响页面显示', { error });
+      }
+    };
+
+    generateImageInBackground();
+  }, [interpretationResult, navigate, fortuneResult, setFortuneImage]);
 
   const handleBackToResult = () => {
     navigate('/fortune-result');

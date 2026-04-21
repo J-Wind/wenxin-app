@@ -28,47 +28,25 @@ export default function InterpretingPage() {
       thoughtLength: fortuneResult.userInput.thought.length
     });
 
-    // 并行调用AI深度解签和AI生图接口
+    // 只调用深度解签接口，图片在解签页后台生成
     const startInterpretation = async () => {
       try {
         setLoadingText('正在连接天机...');
         
-        // 并行调用两个接口
-        const [interpretationResponse, imageResponse] = await Promise.allSettled([
-          generateInterpretation(),
-          generateImage()
-        ]);
+        // 只调用解签接口，加快跳转速度
+        const interpretationResponse = await generateInterpretation();
 
-        // 处理深度解签结果
-        if (interpretationResponse.status === 'fulfilled') {
-          const interpretation = interpretationResponse.value;
-          setInterpretationResult(interpretation);
-          logger.info('AI深度解签成功', {
-            fortuneNumber: fortuneResult.number
-          });
-        } else {
-          logger.error('AI深度解签失败', { error: interpretationResponse.reason });
-          throw new Error('深度解签生成失败');
-        }
-
-        // 处理图片生成结果
-        if (imageResponse.status === 'fulfilled') {
-          const imageUrl = imageResponse.value;
-          setFortuneImage(imageUrl);
-          logger.info('AI图片生成成功', {
-            fortuneNumber: fortuneResult.number,
-            imageUrl: imageUrl
-          });
-        } else {
-          logger.warn('AI图片生成失败，但继续流程', { error: imageResponse.reason });
-        }
+        setInterpretationResult(interpretationResponse);
+        logger.info('AI深度解签成功', {
+          fortuneNumber: fortuneResult.number
+        });
 
         setLoadingText('天机已现，缘起缘落...');
         
-        // 短暂延迟后跳转到解签页面
+        // 立即跳转到解签页面
         setTimeout(() => {
           navigate('/interpret', { replace: true });
-        }, 1000);
+        }, 800);
 
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : '解签过程出现异常';
@@ -135,40 +113,6 @@ export default function InterpretingPage() {
       specificGuide: apiResponse.specificGuide || '针对您当前的具体情况，建议您在以下方面多加关注和调整。',
       actionAdvice: apiResponse.actionAdvice || '请根据签文含义自行判断行动方向，保持积极心态。'
     };
-  };
-
-  // 调用AI生图接口
-  const generateImage = async () => {
-    if (!fortuneResult) {
-      throw new Error('签文数据为空');
-    }
-
-    logger.info('调用AI生图接口', {
-      fortuneNumber: fortuneResult.number
-    });
-
-    // 只使用主签文生成图片，避免文本过长导致生成失败
-    const imagePrompt = `${fortuneResult.mainText} ${fortuneResult.culturalReference}`;
-
-    // 调用真实的AI生图接口
-    const response = await fortuneControllerGenerateImage({
-      body: {
-        fortuneText: imagePrompt,
-        imageRatio: '4:3'
-      }
-    });
-
-    if (response.status !== 200 && response.status !== 201) {
-      throw new Error(`API调用失败，状态码：${response.status}`);
-    }
-
-    const apiResponse = response.data;
-
-    if (!apiResponse.success || !apiResponse.imageUrl) {
-      throw new Error(apiResponse.message || 'AI图片生成失败');
-    }
-
-    return apiResponse.imageUrl;
   };
 
   return (
