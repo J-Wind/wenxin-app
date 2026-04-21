@@ -13,7 +13,7 @@
     "build:legacy": "./scripts/build.sh",
     "build:server": "NODE_ENV=production nest build",
     "build:client": "NODE_ENV=production rspack build --config rspack.config.js --env mode=production",
-    "start": "node dist/server/main.js",
+    "start": "cd dist && NODE_ENV=production node server/main.js",
     "start:legacy": "NODE_ENV=production node main.js",
     "test": "jest",
     "test:watch": "jest --watch",
