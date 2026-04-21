@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { join, resolve } from 'path';
+import { join } from 'path';
 import { __express as hbsExpressEngine } from 'hbs';
 
 import type { NestExpressApplication } from '@nestjs/platform-express';
@@ -25,8 +25,8 @@ async function bootstrap() {
     transform: true,
   }));
 
-  // 静态文件服务 - 使用 __dirname 确保路径正确
-  const clientDir = resolve(__dirname, '..', 'client');
+  // 静态文件服务 - 使用 process.cwd() 获取当前工作目录
+  const clientDir = join(process.cwd(), 'client');
   logger.log(`Serving static files from: ${clientDir}`);
   app.useStaticAssets(clientDir, {
     prefix: '/',
