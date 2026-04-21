@@ -14,17 +14,25 @@ export function FortuneCard({ fortune, cardRef }: FortuneCardProps) {
         <div className="absolute inset-0 bg-paper-texture opacity-20 pointer-events-none"></div>
         <div className="absolute inset-0 border-2 border-primary/20 pointer-events-none"></div>
         
-        <CardContent className="p-8 relative z-10 flex flex-col items-center h-[560px]">
-          <div className="writing-mode-vertical-rl text-start space-y-8">
-            <div className="text-xl text-foreground font-serif leading-loose">
+        <CardContent className="p-8 relative z-10 h-[560px]">
+          <div className="writing-mode-vertical-rl text-start space-y-6 h-full flex justify-center items-center">
+            {/* 签号 */}
+            <div className="text-lg font-bold text-primary font-serif">
+              【{fortune.number}】
+            </div>
+            
+            {/* 主签文 */}
+            <div className="text-xl text-foreground font-serif leading-loose tracking-wider">
               {fortune.mainText}
             </div>
             
+            {/* 文化引用 */}
             <div className="text-sm text-muted-foreground italic leading-relaxed">
               {fortune.culturalReference}
             </div>
             
-            <div className="text-sm text-muted-foreground font-medium">
+            {/* 卦象 */}
+            <div className="text-sm text-muted-foreground font-medium tracking-wider">
               {fortune.hexagram} {fortune.hexagramSymbol}
             </div>
           </div>

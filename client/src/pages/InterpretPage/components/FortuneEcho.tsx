@@ -11,7 +11,7 @@ export function FortuneEcho({ fortune }: FortuneEchoProps) {
     <div className="relative">
       <Card className="bg-card/50 backdrop-blur-md border border-primary/20 rounded-xl hover:bg-card/70 transition-all duration-300">
         <CardContent className="p-6">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
                 <div className="text-primary font-serif">📜</div>
@@ -24,19 +24,25 @@ export function FortuneEcho({ fortune }: FortuneEchoProps) {
             </div>
           </div>
           
-          <div className="mt-4 flex justify-center">
-            <div className="writing-mode-vertical-rl text-start space-y-6">
-              <div className="text-xl text-foreground font-serif leading-loose">
-                {fortune.mainText}
-              </div>
-              
-              <div className="text-sm text-muted-foreground italic leading-relaxed">
-                {fortune.culturalReference}
-              </div>
-              
-              <div className="text-sm text-muted-foreground font-medium">
-                {fortune.hexagram} {fortune.hexagramSymbol}
-              </div>
+          <div className="text-center space-y-4">
+            {/* 签文类型 */}
+            <div className="text-2xl font-bold text-primary font-serif mb-4">
+              {fortune.fortuneType}
+            </div>
+            
+            {/* 签文内容 */}
+            <div className="text-lg text-foreground font-serif leading-loose whitespace-pre-wrap">
+              {fortune.mainText}
+            </div>
+            
+            {/* 文化引用 */}
+            <div className="text-sm text-muted-foreground italic leading-relaxed">
+              {fortune.culturalReference}
+            </div>
+            
+            {/* 卦象 */}
+            <div className="text-sm text-muted-foreground font-medium">
+              {fortune.hexagram} {fortune.hexagramSymbol}
             </div>
           </div>
         </CardContent>

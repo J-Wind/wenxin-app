@@ -28,25 +28,33 @@ export default function InterpretingPage() {
       thoughtLength: fortuneResult.userInput.thought.length
     });
 
-    // 只调用深度解签接口，图片在解签页后台生成
+    // 同步调用深度解签和生图接口，都完成后才跳转
     const startInterpretation = async () => {
       try {
         setLoadingText('正在连接天机...');
         
-        // 只调用解签接口，加快跳转速度
-        const interpretationResponse = await generateInterpretation();
+        // 并行调用两个接口，等待都完成
+        const [interpretationResponse, imageResponse] = await Promise.all([
+          generateInterpretation(),
+          generateImage()
+        ]);
 
         setInterpretationResult(interpretationResponse);
-        logger.info('AI深度解签成功', {
+        
+        if (imageResponse) {
+          setFortuneImage(imageResponse);
+        }
+        
+        logger.info('AI 深度解签和图片生成成功', {
           fortuneNumber: fortuneResult.number
         });
 
         setLoadingText('天机已现，缘起缘落...');
         
-        // 立即跳转到解签页面
+        // 跳转到解签页面
         setTimeout(() => {
           navigate('/interpret', { replace: true });
-        }, 800);
+        }, 1000);
 
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : '解签过程出现异常';
@@ -106,13 +114,47 @@ export default function InterpretingPage() {
       throw new Error(apiResponse.message || 'AI深度解签失败');
     }
 
-    // 使用AI返回的真实数据
+    // 使用 AI 返回的真实数据
     return {
       seasonEcho: apiResponse.seasonEcho || '当前时节与签文相呼应，反映了您内心的季节感受和情感波动。',
       hexagramWisdom: apiResponse.hexagramWisdom || '易经卦象蕴含着深刻的智慧，指导您在当前情境下的思考方向。',
       specificGuide: apiResponse.specificGuide || '针对您当前的具体情况，建议您在以下方面多加关注和调整。',
       actionAdvice: apiResponse.actionAdvice || '请根据签文含义自行判断行动方向，保持积极心态。'
     };
+  };
+
+  // 调用 AI 生图接口
+  const generateImage = async () => {
+    if (!fortuneResult) {
+      throw new Error('签文数据为空');
+    }
+
+    logger.info('调用 AI 生图接口', {
+      fortuneNumber: fortuneResult.number
+    });
+
+    // 只使用主签文生成图片，避免文本过长导致生成失败
+    const imagePrompt = `${fortuneResult.mainText} ${fortuneResult.culturalReference}`;
+
+    // 调用真实的 AI 生图接口
+    const response = await fortuneControllerGenerateImage({
+      body: {
+        fortuneText: imagePrompt,
+        imageRatio: '4:3'
+      }
+    });
+
+    if (response.status !== 200 && response.status !== 201) {
+      throw new Error(`API 调用失败，状态码：${response.status}`);
+    }
+
+    const apiResponse = response.data;
+
+    if (!apiResponse.success || !apiResponse.imageUrl) {
+      throw new Error(apiResponse.message || 'AI 图片生成失败');
+    }
+
+    return apiResponse.imageUrl;
   };
 
   return (

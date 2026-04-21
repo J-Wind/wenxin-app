@@ -266,7 +266,7 @@ export default function InterpretPage() {
         </div>
 
       <div className="relative z-10 max-w-md mx-auto space-y-8">
-        {/* AI生成图片展示 */}
+        {/* AI 生成图片展示 */}
         <div className="space-y-4">
           <div className="text-center">
             <h1 className="text-3xl font-bold text-primary font-serif mb-4">
@@ -277,16 +277,7 @@ export default function InterpretPage() {
             </p>
           </div>
           
-          {/* 签文类型 - 装饰条 */}
-          <div className="flex items-center justify-center space-x-4">
-            <div className="h-px w-16 bg-gradient-to-r from-transparent to-primary/50"></div>
-            <span className="text-2xl font-bold text-primary font-serif tracking-widest">
-              {fortuneResult.fortuneType}
-            </span>
-            <div className="h-px w-16 bg-gradient-to-l from-transparent to-primary/50"></div>
-          </div>
-          
-          {/* AI图片展示 */}
+          {/* AI 图片展示 */}
           <AiImage />
         </div>
 

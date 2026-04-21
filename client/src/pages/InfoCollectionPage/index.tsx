@@ -72,13 +72,13 @@ export default function InfoCollectionPage() {
         {!showForm ? (
           <div className="text-center space-y-12">
             <div className="flex flex-col items-center">
-              <div className="h-12 w-px bg-primary mb-4"></div>
-              <h1 className="text-5xl font-serif font-bold text-primary writing-mode-vertical-rl">
+              <div className="h-16 w-px bg-gradient-to-b from-transparent via-primary to-transparent mb-6"></div>
+              <h1 className="text-6xl font-serif font-bold text-primary writing-mode-vertical-rl tracking-[0.5em]">
                 问心卜运
               </h1>
-              <div className="h-12 w-px bg-primary mt-4"></div>
+              <div className="h-16 w-px bg-gradient-to-b from-transparent via-primary to-transparent mt-6"></div>
             </div>
-            <p className="text-muted-foreground text-lg max-w-md mx-auto">
+            <p className="text-muted-foreground text-lg max-w-md mx-auto tracking-wider">
                探索内心深处的智慧
             </p>
             <Button
