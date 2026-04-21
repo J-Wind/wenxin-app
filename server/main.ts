@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { __express as hbsExpressEngine } from 'hbs';
 
 import type { NestExpressApplication } from '@nestjs/platform-express';
@@ -25,15 +25,17 @@ async function bootstrap() {
     transform: true,
   }));
 
-  // 注册视图引擎, 渲染 client 目录下的 html 文件
-  app.setBaseViewsDir(join(process.cwd(), 'dist/client'));
-  app.setViewEngine('html');
-  app.engine('html', hbsExpressEngine);
-
-  // 静态文件服务
-  app.useStaticAssets(join(process.cwd(), 'dist/client'), {
+  // 静态文件服务 - 使用 __dirname 确保路径正确
+  const clientDir = resolve(__dirname, '..', 'client');
+  logger.log(`Serving static files from: ${clientDir}`);
+  app.useStaticAssets(clientDir, {
     prefix: '/',
   });
+
+  // 注册视图引擎, 渲染 client 目录下的 html 文件
+  app.setBaseViewsDir(clientDir);
+  app.setViewEngine('html');
+  app.engine('html', hbsExpressEngine);
 
   await app.listen(port, host);
   logger.log(`Server running on ${host}:${port}`);

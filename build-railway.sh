@@ -52,20 +52,10 @@ echo ""
 # ==================== 步骤 3 ====================
 echo "📦 [3/3] 准备产物"
 
-# 拷贝 run.sh 到 dist/
-if [ -f "$ROOT_DIR/scripts/run.sh" ]; then
-  cp "$ROOT_DIR/scripts/run.sh" "$DIST_DIR/"
-fi
-
-# 拷贝 .env 文件（如果存在）
-if [ -f "$ROOT_DIR/.env" ]; then
-  cp "$ROOT_DIR/.env" "$DIST_DIR/"
-fi
-
-# 移动 client 下的 HTML 文件到 dist/dist/client
-if [ -d "$DIST_DIR/client" ]; then
-  mkdir -p "$DIST_DIR/dist/client"
-  find "$DIST_DIR/client" -maxdepth 1 -name "*.html" -exec mv {} "$DIST_DIR/dist/client/" \;
+# 确保 dist/client 目录存在（前端构建产物应该在这里）
+if [ ! -d "$DIST_DIR/client" ]; then
+  echo "   ❌ dist/client 目录不存在"
+  exit 1
 fi
 
 # 清理无用文件
