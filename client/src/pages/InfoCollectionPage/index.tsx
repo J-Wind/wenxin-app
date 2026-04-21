@@ -71,14 +71,14 @@ export default function InfoCollectionPage() {
         {/* Loading首屏 */}
         {!showForm ? (
           <div className="text-center space-y-12">
-            <div className="flex flex-col items-center">
-              <div className="h-16 w-px bg-gradient-to-b from-transparent via-primary to-transparent mb-6"></div>
-              <h1 className="text-6xl font-serif font-bold text-primary writing-mode-vertical-rl tracking-[0.5em]">
+            <div className="flex flex-col items-center justify-center" style={{ writingMode: 'vertical-rl', textOrientation: 'upright' }}>
+              <div className="h-20 w-[2px] bg-gradient-to-b from-transparent via-primary to-transparent mb-4"></div>
+              <h1 className="text-7xl font-serif font-bold text-primary tracking-[0.8em]">
                 问心卜运
               </h1>
-              <div className="h-16 w-px bg-gradient-to-b from-transparent via-primary to-transparent mt-6"></div>
+              <div className="h-20 w-[2px] bg-gradient-to-b from-transparent via-primary to-transparent mt-4"></div>
             </div>
-            <p className="text-muted-foreground text-lg max-w-md mx-auto tracking-wider">
+            <p className="text-muted-foreground text-lg max-w-md mx-auto tracking-[0.3em]">
                探索内心深处的智慧
             </p>
             <Button
