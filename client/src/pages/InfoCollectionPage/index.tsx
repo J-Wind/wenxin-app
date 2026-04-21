@@ -1,8 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
 import { useFortuneStore } from '@/stores/fortuneStore';
 import { ThoughtInput } from './components/ThoughtInput';
 import { MoodSelector } from './components/MoodSelector';
@@ -126,16 +125,6 @@ export default function InfoCollectionPage() {
             </Card>
           </>
         )}
-      </div>
-      
-      {/* 下载源码入口 */}
-      <div className="absolute bottom-4 left-0 right-0 text-center z-20">
-        <Link
-          to="/download"
-          className="text-xs text-muted-foreground/50 hover:text-primary transition-colors"
-        >
-          下载源码
-        </Link>
       </div>
     </div>
   );

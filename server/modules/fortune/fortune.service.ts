@@ -7,11 +7,10 @@ export class FortuneService {
 
   async generateFortuneImage(
     fortuneText: string,
-    imageRatio: string = "1:1",
-    userId: string
+    imageRatio: string = "1:1"
   ): Promise<{ success: boolean; imageUrl?: string; message?: string }> {
     try {
-      this.logger.log(`用户 ${userId} 请求生成签文图片`, {
+      this.logger.log(`请求生成签文图片`, {
         fortuneTextLength: fortuneText.length,
         imageRatio
       });
@@ -26,7 +25,6 @@ export class FortuneService {
         const imageUrl = result.data.output.images[0];
         
         this.logger.log(`签文图片生成成功`, {
-          userId,
           imageUrl,
           fortuneTextLength: fortuneText.length
         });
@@ -38,7 +36,6 @@ export class FortuneService {
         };
       } else {
         this.logger.warn(`签文图片生成失败`, {
-          userId,
           code: result.code,
           message: result.message
         });
@@ -50,7 +47,6 @@ export class FortuneService {
       }
     } catch (error) {
       this.logger.error(`签文图片生成异常`, {
-        userId,
         error: error instanceof Error ? error.message : "未知错误",
         fortuneTextLength: fortuneText.length
       });

@@ -1,8 +1,7 @@
-import { Controller, Post, Body, Req } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiExtraModels } from '@nestjs/swagger';
 import { FortuneInterpretationService } from './fortune-interpretation.service';
 import { GenerateInterpretationRequestDto, GenerateInterpretationResponseDto } from './dtos/fortune-interpretation.dto';
-import type { Request } from 'express';
 
 @ApiTags('Fortune Interpretation')
 @ApiExtraModels(GenerateInterpretationResponseDto)
@@ -19,11 +18,8 @@ export class FortuneInterpretationController {
   })
   @ApiCreatedResponse({ type: GenerateInterpretationResponseDto })
   async generateInterpretation(
-    @Req() req: Request,
     @Body() body: GenerateInterpretationRequestDto
   ): Promise<GenerateInterpretationResponseDto> {
-    const { userId } = req.userContext;
-    
     try {
       const interpretation = await this.fortuneInterpretationService.generateInterpretation(body.fortuneText);
       

@@ -1,6 +1,5 @@
-import { Controller, Post, Body, Req } from "@nestjs/common";
+import { Controller, Post, Body } from "@nestjs/common";
 import { ApiExtraModels, ApiOkResponse, ApiTags, ApiOperation } from "@nestjs/swagger";
-import type { Request } from "express";
 import { FortuneService } from "./fortune.service";
 import { GenerateImageRequestDto, GenerateImageResponseDto } from "./dtos/fortune.dto";
 
@@ -17,15 +16,11 @@ export class FortuneController {
   })
   @ApiOkResponse({ type: GenerateImageResponseDto })
   async generateImage(
-    @Req() req: Request,
     @Body() body: GenerateImageRequestDto
   ): Promise<GenerateImageResponseDto> {
-    const { userId } = req.userContext;
-    
     const result = await this.fortuneService.generateFortuneImage(
       body.fortuneText,
-      body.imageRatio,
-      userId
+      body.imageRatio
     );
 
     return {
